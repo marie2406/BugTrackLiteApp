@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:BugTrackLite.ViewModels"
+             x:Class="BugTrackLite.Views.TicketDetailPage"
+             Title="Détail du ticket" Shell.NavBarIsVisible="True">
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="12">
+            <Label Text="BUGTRACKLITE · DÉTAIL" Style="{StaticResource Brand}" />
+            <Label Text="Détail du ticket" Style="{StaticResource H1}" />
+            <Label Text="{Binding CreatedLabel}" Style="{StaticResource Muted}" />
+
+            <Border Style="{StaticResource Card}">
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="{Binding Ticket.PriorityText}" TextColor="{Binding Ticket.PriorityColor}" FontAttributes="Bold" />
+                    <Label Text="{Binding Ticket.Title}" FontSize="20" FontAttributes="Bold" />
+                    <Label Text="{Binding Ticket.Note}" Style="{StaticResource Muted}" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Border Style="{StaticResource Card}">
+                <Grid ColumnDefinitions="*,Auto">
+                    <Label Text="État" Style="{StaticResource Muted}" VerticalOptions="Center" />
+                    <Label Grid.Column="1" Text="{Binding Ticket.StatusText}" FontAttributes="Bold" />
+                </Grid>
+            </Border>
+
+            <Label Text="Actions" FontSize="18" FontAttributes="Bold" />
+            <FlexLayout Wrap="Wrap">
+                <Button Text="Démarrer" Style="{StaticResource SmallButton}" IsVisible="{Binding CanStart}" Command="{Binding StartCommand}" />
+                <Button Text="Remettre à faire" Style="{StaticResource SmallButton}" IsVisible="{Binding CanBack}" Command="{Binding BackToTodoCommand}" />
+                <Button Text="Terminer" Style="{StaticResource SmallButton}" IsVisible="{Binding CanFinish}" Command="{Binding FinishCommand}" />
+            </FlexLayout>
+
+            <Label Text="Historique" FontSize="18" FontAttributes="Bold" />
+            <Border Style="{StaticResource Card}">
+                <VerticalStackLayout Spacing="6" BindableLayout.ItemsSource="{Binding History}">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate><Label Text="{Binding .}" FontSize="14" /></DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </VerticalStackLayout>
+            </Border>
+
+            <Button Text="Archiver le ticket" Style="{StaticResource DangerButton}" Command="{Binding ArchiveCommand}" Margin="0,8,0,0" />
+            <Button Text="ANNULER" Style="{StaticResource GhostButton}" Command="{Binding CloseCommand}" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

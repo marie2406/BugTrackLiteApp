@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:BugTrackLite.ViewModels"
+             x:Class="BugTrackLite.Views.SearchPage"
+             Title="Recherche &amp; filtres" Shell.NavBarIsVisible="True">
+    <Grid RowDefinitions="Auto,*" Padding="20,20,20,0" RowSpacing="10">
+        <VerticalStackLayout Spacing="6">
+            <Label Text="BUGTRACKLITE · RECHERCHE &amp; FILTRES" Style="{StaticResource Brand}" />
+            <Label Text="Recherche &amp; filtres" Style="{StaticResource H1}" />
+            <Label Text="Trouvez une tâche sans parcourir le tableau." Style="{StaticResource Muted}" />
+            <Entry Text="{Binding Query}" Placeholder="⌕ Connexion" />
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+                <VerticalStackLayout>
+                    <Label Text="État" FontSize="12" Style="{StaticResource Muted}" />
+                    <Picker ItemsSource="{Binding States}" SelectedIndex="{Binding StateIndex}" />
+                </VerticalStackLayout>
+                <VerticalStackLayout Grid.Column="1">
+                    <Label Text="Priorité" FontSize="12" Style="{StaticResource Muted}" />
+                    <Picker ItemsSource="{Binding Priorities}" SelectedIndex="{Binding PriorityIndex}" />
+                </VerticalStackLayout>
+            </Grid>
+            <Label Text="{Binding ResultText}" FontAttributes="Bold" />
+        </VerticalStackLayout>
+
+        <CollectionView Grid.Row="1" ItemsSource="{Binding Results}" EmptyView="Aucun résultat.">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Border Style="{StaticResource Card}" Margin="0,0,0,8">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer CommandParameter="{Binding .}"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:SearchViewModel}}, Path=OpenDetailCommand}" />
+                        </Border.GestureRecognizers>
+                        <Grid ColumnDefinitions="*,Auto">
+                            <VerticalStackLayout Spacing="2">
+                                <Label Text="{Binding Code}" FontSize="12" TextColor="{StaticResource TextMuted}" />
+                                <Label Text="{Binding Title}" FontAttributes="Bold" />
+                                <Label Text="{Binding StatusText}" FontSize="12" TextColor="{StaticResource TextMuted}" />
+                            </VerticalStackLayout>
+                            <Label Grid.Column="1" Text="{Binding PriorityText}" TextColor="{Binding PriorityColor}" FontAttributes="Bold" VerticalOptions="Center" />
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+            <CollectionView.Footer>
+                <VerticalStackLayout Spacing="8" Padding="0,10,0,20">
+                    <Button Text="Réinitialiser les filtres" Style="{StaticResource GhostButton}" Command="{Binding ResetCommand}" />
+                    <Button Text="ANNULER" BackgroundColor="Transparent" TextColor="{StaticResource TextMuted}" Command="{Binding CloseCommand}" />
+                </VerticalStackLayout>
+            </CollectionView.Footer>
+        </CollectionView>
+    </Grid>
+</ContentPage>

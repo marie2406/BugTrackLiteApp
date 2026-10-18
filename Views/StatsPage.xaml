@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:BugTrackLite.ViewModels"
+             x:Class="BugTrackLite.Views.StatsPage"
+             Title="Statistiques" Shell.NavBarIsVisible="True">
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="14">
+            <Label Text="BUGTRACKLITE · STATISTIQUES" Style="{StaticResource Brand}" />
+            <Label Text="Bilan du projet" Style="{StaticResource H1}" />
+            <Label Text="Vue de vos activités" Style="{StaticResource Muted}" />
+
+            <Border Style="{StaticResource Card}">
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Progression" FontAttributes="Bold" />
+                    <HorizontalStackLayout Spacing="6">
+                        <Label Text="{Binding Percent, StringFormat='{0}%'}" FontSize="34" FontAttributes="Bold" />
+                        <Label Text="Tâches terminées" Style="{StaticResource Muted}" VerticalOptions="End" Margin="0,0,0,6" />
+                    </HorizontalStackLayout>
+                    <ProgressBar Progress="{Binding DoneRatio}" ProgressColor="{StaticResource Primary}" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Border Style="{StaticResource Card}">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Répartition" FontAttributes="Bold" />
+                    <Grid ColumnDefinitions="90,*,50" ColumnSpacing="8">
+                        <Label Text="À faire" VerticalOptions="Center" />
+                        <ProgressBar Grid.Column="1" Progress="{Binding TodoRatio}" ProgressColor="#F5A524" />
+                        <Label Grid.Column="2" Text="{Binding TodoText}" HorizontalTextAlignment="End" />
+                    </Grid>
+                    <Grid ColumnDefinitions="90,*,50" ColumnSpacing="8">
+                        <Label Text="En cours" VerticalOptions="Center" />
+                        <ProgressBar Grid.Column="1" Progress="{Binding DoingRatio}" ProgressColor="{StaticResource Primary}" />
+                        <Label Grid.Column="2" Text="{Binding DoingText}" HorizontalTextAlignment="End" />
+                    </Grid>
+                    <Grid ColumnDefinitions="90,*,50" ColumnSpacing="8">
+                        <Label Text="Terminé" VerticalOptions="Center" />
+                        <ProgressBar Grid.Column="1" Progress="{Binding DoneRatio}" ProgressColor="#30A46C" />
+                        <Label Grid.Column="2" Text="{Binding DoneText}" HorizontalTextAlignment="End" />
+                    </Grid>
+                </VerticalStackLayout>
+            </Border>
+
+            <Border Style="{StaticResource Card}">
+                <VerticalStackLayout Spacing="4">
+                    <Label Text="Rythme" FontAttributes="Bold" />
+                    <Label Text="{Binding RhythmText}" FontSize="30" FontAttributes="Bold" TextColor="#30A46C" />
+                    <Label Text="{Binding RhythmDetail}" Style="{StaticResource Muted}" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Button Text="ANNULER" Style="{StaticResource GhostButton}" Command="{Binding CloseCommand}" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

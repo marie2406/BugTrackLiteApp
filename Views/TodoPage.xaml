@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:BugTrackLite.ViewModels"
+             x:Class="BugTrackLite.Views.TodoPage">
+    <Grid RowDefinitions="Auto,*" Padding="20,20,20,0" RowSpacing="12">
+        <VerticalStackLayout Spacing="6">
+            <Label Text="BUGTRACKLITE · À FAIRE" Style="{StaticResource Brand}" />
+            <Label Text="{Binding Title}" Style="{StaticResource H1}" />
+            <Label Text="{Binding Subtitle}" Style="{StaticResource Muted}" />
+            <Entry Text="{Binding SearchText}" Placeholder="⌕ Rechercher une tâche" />
+        </VerticalStackLayout>
+        <CollectionView Grid.Row="1" ItemsSource="{Binding Tickets}"
+                        ItemTemplate="{StaticResource TicketCardTemplate}"
+                        EmptyView="{Binding EmptyMessage}" />
+    </Grid>
+</ContentPage>

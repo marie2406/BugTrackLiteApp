@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:BugTrackLite.ViewModels"
+             x:Class="BugTrackLite.Views.RegisterPage"
+             Title="Inscription" Shell.NavBarIsVisible="True">
+    <ScrollView>
+        <VerticalStackLayout Padding="24" Spacing="8">
+            <Label Text="BUGTRACKLITE · INSCRIPTION" Style="{StaticResource Brand}" />
+            <Label Text="Inscription" Style="{StaticResource H1}" />
+            <Label Text="Inscrivez-vous et faites partie de la famille BugTrackLite" Style="{StaticResource Muted}" Margin="0,0,0,10" />
+
+            <Label Text="Nom complet" />
+            <Entry Text="{Binding FullName}" Placeholder="Marie Essane" />
+            <Label Text="{Binding NameError}" Style="{StaticResource Error}" IsVisible="{Binding NameError, Converter={StaticResource NotEmpty}}" />
+
+            <Label Text="Nom du projet" />
+            <Entry Text="{Binding ProjectName}" Placeholder="ex : TP de réseau S5" />
+
+            <Label Text="E-mail" />
+            <Entry Text="{Binding Email}" Placeholder="marie@example.com" Keyboard="Email" />
+            <Label Text="{Binding EmailError}" Style="{StaticResource Error}" IsVisible="{Binding EmailError, Converter={StaticResource NotEmpty}}" />
+
+            <Label Text="Mot de passe" />
+            <Entry Text="{Binding Password}" IsPassword="True" Placeholder="••••••••" />
+            <Label Text="{Binding PasswordError}" Style="{StaticResource Error}" IsVisible="{Binding PasswordError, Converter={StaticResource NotEmpty}}" />
+
+            <Label Text="Confirmer le mot de passe" />
+            <Entry Text="{Binding ConfirmPassword}" IsPassword="True" Placeholder="••••••••" />
+            <Label Text="{Binding ConfirmError}" Style="{StaticResource Error}" IsVisible="{Binding ConfirmError, Converter={StaticResource NotEmpty}}" />
+            <Label Text="{Binding GeneralError}" Style="{StaticResource Error}" IsVisible="{Binding GeneralError, Converter={StaticResource NotEmpty}}" />
+
+            <Button Text="Créer mon compte" Style="{StaticResource PrimaryButton}" Command="{Binding RegisterCommand}" Margin="0,8,0,0" />
+            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" Color="{StaticResource Primary}" />
+            <Label Text="En créant un compte, vous acceptez les conditions d'utilisation." Style="{StaticResource Muted}" FontSize="12" HorizontalTextAlignment="Center" />
+            <Button Text="Déjà un compte ? Se connecter" BackgroundColor="Transparent" TextColor="{StaticResource Primary}" Command="{Binding BackToLoginCommand}" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

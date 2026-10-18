@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:views="clr-namespace:BugTrackLite.Views"
+       x:Class="BugTrackLite.AppShell"
+       FlyoutBehavior="Disabled"
+       Shell.NavBarIsVisible="False"
+       Shell.TabBarBackgroundColor="White"
+       Shell.TabBarForegroundColor="{StaticResource Primary}"
+       Shell.TabBarTitleColor="{StaticResource Primary}"
+       Shell.TabBarUnselectedColor="{StaticResource TextMuted}">
+
+    <!-- Écran de départ : connexion (l'inscription est ouverte depuis la connexion) -->
+    <ShellContent Route="login" ContentTemplate="{DataTemplate views:LoginPage}" />
+
+    <!-- Barre d'onglets du bas : Accueil / À faire / En cours / Terminé / Plus -->
+    <TabBar Route="main">
+        <ShellContent Route="home" Title="Accueil" ContentTemplate="{DataTemplate views:DashboardPage}" />
+        <ShellContent Route="todo" Title="À faire" ContentTemplate="{DataTemplate views:TodoPage}" />
+        <ShellContent Route="doing" Title="En cours" ContentTemplate="{DataTemplate views:InProgressPage}" />
+        <ShellContent Route="done" Title="Terminé" ContentTemplate="{DataTemplate views:DonePage}" />
+        <ShellContent Route="more" Title="Plus" ContentTemplate="{DataTemplate views:MorePage}" />
+    </TabBar>
+</Shell>

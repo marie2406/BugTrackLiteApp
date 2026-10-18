@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:BugTrackLite.ViewModels"
+             x:Class="BugTrackLite.Views.LoginPage">
+    <ScrollView>
+        <VerticalStackLayout Padding="24" Spacing="10" VerticalOptions="Center">
+            <Label Text="BUGTRACKLITE · CONNEXION" Style="{StaticResource Brand}" />
+            <Label Text="Bienvenue" Style="{StaticResource H1}" />
+            <Label Text="Retrouvez vos activités avec BugTrackLite." Style="{StaticResource Muted}" Margin="0,0,0,12" />
+
+            <Label Text="Adresse e-mail" />
+            <Entry Text="{Binding Email}" Placeholder="marie@gmail.com" Keyboard="Email" />
+            <Label Text="{Binding EmailError}" Style="{StaticResource Error}"
+                   IsVisible="{Binding EmailError, Converter={StaticResource NotEmpty}}" />
+
+            <Label Text="Mot de passe" />
+            <Entry Text="{Binding Password}" Placeholder="••••••••" IsPassword="True" />
+            <Label Text="{Binding GeneralError}" Style="{StaticResource Error}"
+                   IsVisible="{Binding GeneralError, Converter={StaticResource NotEmpty}}" />
+
+            <Button Text="Mot de passe oublié ?" BackgroundColor="Transparent" TextColor="{StaticResource Primary}"
+                    HorizontalOptions="End" Command="{Binding ForgotPasswordCommand}" />
+            <Button Text="Se connecter" Style="{StaticResource PrimaryButton}" Command="{Binding LoginCommand}" />
+            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" Color="{StaticResource Primary}" />
+
+            <Label Text="OU" HorizontalOptions="Center" Style="{StaticResource Muted}" />
+            <Button Text="Continuer avec mon compte étudiant" Style="{StaticResource GhostButton}"
+                    Command="{Binding StudentLoginCommand}" />
+
+            <HorizontalStackLayout HorizontalOptions="Center" Spacing="4" Margin="0,12,0,0">
+                <Label Text="Pas encore de compte ?" Style="{StaticResource Muted}" VerticalOptions="Center" />
+                <Button Text="Créer un compte" BackgroundColor="Transparent" TextColor="{StaticResource Primary}"
+                        FontAttributes="Bold" Command="{Binding GoToRegisterCommand}" />
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

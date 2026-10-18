@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:BugTrackLite.ViewModels"
+             x:Class="BugTrackLite.Views.DashboardPage">
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="16">
+
+            <Grid ColumnDefinitions="*,Auto">
+                <VerticalStackLayout Spacing="2">
+                    <Label Text="BUGTRACKLITE · ACCUEIL" Style="{StaticResource Brand}" />
+                    <Label Text="Dashboard Projet" Style="{StaticResource H1}" />
+                    <Label Text="{Binding ProjectName, StringFormat='Projet : {0}'}" Style="{StaticResource Muted}" />
+                </VerticalStackLayout>
+                <Border Grid.Column="1" WidthRequest="44" HeightRequest="44" StrokeThickness="0"
+                        BackgroundColor="{StaticResource Primary}" VerticalOptions="Start">
+                    <Border.StrokeShape><RoundRectangle CornerRadius="22" /></Border.StrokeShape>
+                    <Label Text="{Binding Initials}" TextColor="White" FontAttributes="Bold"
+                           HorizontalOptions="Center" VerticalOptions="Center" />
+                </Border>
+            </Grid>
+
+            <!-- Avancement global -->
+            <Border Style="{StaticResource Card}">
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Avancement" Style="{StaticResource Muted}" />
+                    <HorizontalStackLayout Spacing="6">
+                        <Label Text="{Binding ProgressText}" FontSize="34" FontAttributes="Bold" />
+                        <Label Text="terminé" Style="{StaticResource Muted}" VerticalOptions="End" Margin="0,0,0,6" />
+                    </HorizontalStackLayout>
+                    <ProgressBar Progress="{Binding ProgressValue}" ProgressColor="{StaticResource Primary}" />
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Compteurs (un appui ouvre la colonne correspondante) -->
+            <Grid ColumnDefinitions="*,*,*" ColumnSpacing="10">
+                <Border Style="{StaticResource Card}">
+                    <Border.GestureRecognizers><TapGestureRecognizer Command="{Binding GoToCommand}" CommandParameter="//main/todo" /></Border.GestureRecognizers>
+                    <VerticalStackLayout HorizontalOptions="Center">
+                        <Label Text="{Binding TodoCount}" FontSize="26" FontAttributes="Bold" HorizontalOptions="Center" />
+                        <Label Text="À faire" Style="{StaticResource Muted}" />
+                    </VerticalStackLayout>
+                </Border>
+                <Border Grid.Column="1" Style="{StaticResource Card}">
+                    <Border.GestureRecognizers><TapGestureRecognizer Command="{Binding GoToCommand}" CommandParameter="//main/doing" /></Border.GestureRecognizers>
+                    <VerticalStackLayout HorizontalOptions="Center">
+                        <Label Text="{Binding DoingCount}" FontSize="26" FontAttributes="Bold" HorizontalOptions="Center" />
+                        <Label Text="En cours" Style="{StaticResource Muted}" />
+                    </VerticalStackLayout>
+                </Border>
+                <Border Grid.Column="2" Style="{StaticResource Card}">
+                    <Border.GestureRecognizers><TapGestureRecognizer Command="{Binding GoToCommand}" CommandParameter="//main/done" /></Border.GestureRecognizers>
+                    <VerticalStackLayout HorizontalOptions="Center">
+                        <Label Text="{Binding DoneCount}" FontSize="26" FontAttributes="Bold" HorizontalOptions="Center" />
+                        <Label Text="Terminé" Style="{StaticResource Muted}" />
+                    </VerticalStackLayout>
+                </Border>
+            </Grid>
+
+            <!-- Priorités du jour -->
+            <Grid ColumnDefinitions="*,Auto">
+                <Label Text="Priorités du jour" FontSize="18" FontAttributes="Bold" />
+                <Button Grid.Column="1" Text="tout voir" BackgroundColor="Transparent" TextColor="{StaticResource Primary}"
+                        Command="{Binding GoToCommand}" CommandParameter="//main/todo" />
+            </Grid>
+            <VerticalStackLayout Spacing="8" BindableLayout.ItemsSource="{Binding PriorityTickets}">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <Border Style="{StaticResource Card}">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer CommandParameter="{Binding .}"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:DashboardViewModel}}, Path=OpenDetailCommand}" />
+                            </Border.GestureRecognizers>
+                            <Grid ColumnDefinitions="*,Auto">
+                                <VerticalStackLayout Spacing="2">
+                                    <Label Text="{Binding Code}" FontSize="12" TextColor="{StaticResource TextMuted}" />
+                                    <Label Text="{Binding Title}" FontAttributes="Bold" />
+                                    <Label Text="{Binding StatusText}" FontSize="12" TextColor="{StaticResource TextMuted}" />
+                                </VerticalStackLayout>
+                                <Label Grid.Column="1" Text="{Binding PriorityText}" TextColor="{Binding PriorityColor}" FontAttributes="Bold" VerticalOptions="Center" />
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </VerticalStackLayout>
+
+            <Button Text="+ Nouveau ticket" Style="{StaticResource PrimaryButton}" Command="{Binding GoToCommand}" CommandParameter="add" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

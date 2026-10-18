@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:BugTrackLite.ViewModels"
+             x:Class="BugTrackLite.Views.SettingsPage"
+             Title="Réglages" Shell.NavBarIsVisible="True">
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="12">
+            <Label Text="BUGTRACKLITE · RÉGLAGES" Style="{StaticResource Brand}" />
+            <Label Text="Réglages" Style="{StaticResource H1}" />
+
+            <Border Style="{StaticResource Card}">
+                <Grid ColumnDefinitions="Auto,*" ColumnSpacing="12">
+                    <Border WidthRequest="48" HeightRequest="48" StrokeThickness="0" BackgroundColor="{StaticResource Primary}">
+                        <Border.StrokeShape><RoundRectangle CornerRadius="24" /></Border.StrokeShape>
+                        <Label Text="{Binding Initials}" TextColor="White" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Center" />
+                    </Border>
+                    <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
+                        <Label Text="{Binding ProjectName}" FontAttributes="Bold" />
+                        <Label Text="{Binding FullName}" Style="{StaticResource Muted}" />
+                    </VerticalStackLayout>
+                </Grid>
+            </Border>
+
+            <Label Text="AFFICHAGE" Style="{StaticResource Brand}" Margin="0,8,0,0" />
+            <Border Style="{StaticResource Card}">
+                <VerticalStackLayout Spacing="8">
+                    <Grid ColumnDefinitions="*,Auto">
+                        <Label Text="Afficher les terminés" VerticalOptions="Center" />
+                        <Switch Grid.Column="1" IsToggled="{Binding ShowDone}" />
+                    </Grid>
+                    <Grid ColumnDefinitions="*,120">
+                        <Label Text="Tri par défaut" VerticalOptions="Center" />
+                        <Picker Grid.Column="1" ItemsSource="{Binding Sorts}" SelectedIndex="{Binding SortIndex}" HorizontalTextAlignment="End" />
+                    </Grid>
+                    <Grid ColumnDefinitions="*,Auto">
+                        <Label Text="Rappel quotidien" VerticalOptions="Center" />
+                        <Switch Grid.Column="1" IsToggled="{Binding DailyReminder}" />
+                    </Grid>
+                </VerticalStackLayout>
+            </Border>
+
+            <Label Text="KANBAN" Style="{StaticResource Brand}" Margin="0,8,0,0" />
+            <Border Style="{StaticResource Card}">
+                <VerticalStackLayout Spacing="8">
+                    <Grid ColumnDefinitions="*,Auto,Auto" ColumnSpacing="10">
+                        <Label Text="Limite « En cours »" VerticalOptions="Center" />
+                        <Label Grid.Column="1" Text="{Binding InProgressLimit}" FontAttributes="Bold" VerticalOptions="Center" />
+                        <Stepper Grid.Column="2" Minimum="1" Maximum="10" Increment="1" Value="{Binding InProgressLimit}" />
+                    </Grid>
+                    <Grid ColumnDefinitions="*,Auto">
+                        <Label Text="Confirmer l'archivage" VerticalOptions="Center" />
+                        <Switch Grid.Column="1" IsToggled="{Binding ConfirmArchive}" />
+                    </Grid>
+                </VerticalStackLayout>
+            </Border>
+
+            <Button Text="Se déconnecter" Style="{StaticResource DangerButton}" Command="{Binding LogoutCommand}" Margin="0,12,0,0" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
