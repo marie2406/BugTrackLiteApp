@@ -10,6 +10,7 @@ public partial class AppShell : Shell
 
         // Pages ouvertes "par-dessus" les onglets (navigation avec bouton retour).
         Routing.RegisterRoute("register", typeof(RegisterPage));
-       
+        Routing.RegisterRoute("add", typeof(AddTicketPage));
+        Routing.RegisterRoute("detail", typeof(TicketDetailPage));
     }
 }
